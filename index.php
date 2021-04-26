@@ -9,41 +9,43 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header("Referrer-Policy: no-referrer");
 $show = isset($_GET['show']) ? htmlspecialchars($_GET['show']) : 20;
 $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : false;
+$array = [];
+$errors = [];
 
-function http_code_and_die()
-{
-  http_response_code(400);
-  die('Nonono!');
+if (!is_numeric($show) || $show < 1 || $show > 20) {
+  $errors[] = (array("Show" => "Show must be between 1 and 20"));
 }
 
-if (!is_numeric($show) || $show < 1) {
-  http_code_and_die();
+if (
+  $category &&
+  !($category === 'mens clothing' ||
+    $category === 'jewelery' ||
+    $category === 'electronics' ||
+    $category === 'womens clothing')
+) {
+  $errors[] = (array("Category" => "Category not found"));
 }
 
-if ($show < 20) {
+if ($category && $show <= 20) {
+  foreach ($products as $product) {
+    if ($product['category'] === $category) {
+      $firstArray[] = $product;
+    }
+  }
+  if ($show < 20) {
+    shuffle($firstArray);
+    for ($i = 0; $i < $show; $i++) {
+      $array[] = $firstArray[$i];
+    }
+  } else {
+    $array[] = $firstArray;
+  }
+}
+
+if ($show < 20 && !$category) {
   shuffle($products);
   for ($i = 0; $i < $show; $i++) {
     $array[] = $products[$i];
-  }
-}
-
-if ($show > 20) {
-  http_code_and_die();
-}
-
-if ($category) {
-  if (
-    !($category === 'mens clothing' ||
-      $category === 'jewelery' ||
-      $category === 'electronics' ||
-      $category === 'womens clothing')
-  ) {
-    http_code_and_die();
-  }
-  foreach ($products as $product) {
-    if ($product['category'] === $category) {
-      $array[] = $product;
-    }
   }
 }
 
@@ -51,5 +53,5 @@ if ($show == 20 && !$category) {
   $array = $products;
 }
 
-
-echo json_encode($array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+if ($errors) echo json_encode($errors, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+else echo json_encode($array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
