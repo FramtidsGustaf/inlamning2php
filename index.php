@@ -9,19 +9,15 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header("Referrer-Policy: no-referrer");
 $show = isset($_GET['show']) ? htmlspecialchars($_GET['show']) : 20;
 $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : false;
-$array = [];
 
-function validate_category($category)
+function http_code_and_die()
 {
-  return $category === 'mens clothing' ||
-    $category === 'jewelery' ||
-    $category === 'electronics' ||
-    $category === 'womens clothing';
+  http_response_code(400);
+  die('Nonono!');
 }
 
 if (!is_numeric($show) || $show < 1) {
-  http_response_code(400);
-  die('Nonono!');
+  http_code_and_die();
 }
 
 if ($show < 20) {
@@ -31,10 +27,18 @@ if ($show < 20) {
   }
 }
 
+if ($show > 20) {
+  http_code_and_die();
+}
+
 if ($category) {
-  if (!validate_category($category)) {
-    http_response_code(400);
-    die('Nonono!');
+  if (
+    !($category === 'mens clothing' ||
+      $category === 'jewelery' ||
+      $category === 'electronics' ||
+      $category === 'womens clothing')
+  ) {
+    http_code_and_die();
   }
   foreach ($products as $product) {
     if ($product['category'] === $category) {
@@ -43,7 +47,7 @@ if ($category) {
   }
 }
 
-if ($show === 20 && !$category) {
+if ($show == 20 && !$category) {
   $array = $products;
 }
 
