@@ -12,10 +12,12 @@ $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : fal
 $array = [];
 $errors = [];
 
+//validate show
 if (!is_numeric($show) || $show < 1 || $show > 20) {
   $errors[] = (array("Show" => "Show must be between 1 and 20"));
 }
 
+//validate category
 if (
   $category &&
   !($category === 'mens clothing' ||
