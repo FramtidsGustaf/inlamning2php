@@ -7,13 +7,13 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header("Referrer-Policy: no-referrer");
-$show = isset($_GET['show']) ? htmlspecialchars($_GET['show']) : 20;
+$show = isset($_GET['show']) ? htmlspecialchars($_GET['show']) : false;
 $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : false;
 $array = [];
 $errors = [];
 
 //validate show
-if (!is_numeric($show) || $show < 1 || $show > 20) {
+if ($show && (!is_numeric($show) || $show < 1 || $show > 20)) {
   $errors[] = (array("Show" => "Show must be between 1 and 20"));
 }
 
@@ -28,13 +28,13 @@ if (
   $errors[] = (array("Category" => "Category not found"));
 }
 
-if ($category && $show <= 20) {
+if ($category) {
   foreach ($products as $product) {
     if ($product['category'] === $category) {
       $firstArray[] = $product;
     }
   }
-  if ($show < 20) {
+  if ($show) {
     shuffle($firstArray);
     for ($i = 0; $i < $show; $i++) {
       $array[] = $firstArray[$i];
@@ -44,14 +44,14 @@ if ($category && $show <= 20) {
   }
 }
 
-if ($show < 20 && !$category) {
+if ($show && !$category) {
   shuffle($products);
   for ($i = 0; $i < $show; $i++) {
     $array[] = $products[$i];
   }
 }
 
-if ($show == 20 && !$category) {
+if (!$show && !$category) {
   $array = $products;
 }
 
