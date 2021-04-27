@@ -28,27 +28,25 @@ if (
   $errors[] = (array("Category" => "Category not found"));
 }
 
+//filter desired category
 if ($category) {
   foreach ($products as $product) {
     if ($product['category'] === $category) {
       $array[] = $product;
     }
   }
-  if ($show) {
-    shuffle($array);
-    array_splice($array, $show);
-  }
 }
 
-if ($show && !$category) {
-  $array = $products;
+//filter desired amount
+if ($show) {
+  if (!$array) $array = $products;
   shuffle($array);
   array_splice($array, $show);
 }
 
-if (!$show && !$category) {
-  $array = $products;
-}
+//without query string
+if (!$show && !$category) $array = $products;
 
+//send errors or results
 if ($errors) echo json_encode($errors, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 else echo json_encode($array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
