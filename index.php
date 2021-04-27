@@ -2,13 +2,18 @@
 
 include_once "products.php";
 
+//headers
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header("Referrer-Policy: no-referrer");
+
+//checks for correct query strings
 $show = isset($_GET['show']) ? htmlspecialchars($_GET['show']) : false;
 $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : false;
+
+//arrays to be filled
 $array = [];
 $errors = [];
 
