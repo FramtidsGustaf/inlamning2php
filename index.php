@@ -6,6 +6,13 @@ include_once "products.php";
 //headers
 include_once "headers.php";
 
+
+//oop alternative
+// include_once 'App.php';
+
+// $app = new App($products);
+// $app->main();
+
 //checks for correct query strings
 $show = isset($_GET['show']) ? htmlspecialchars($_GET['show']) : false;
 $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : false;
@@ -15,7 +22,8 @@ $array = [];
 $errors = [];
 
 //sends content to user
-function send($content) {
+function send($content)
+{
   echo json_encode($content, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
 
@@ -24,13 +32,15 @@ if ($show && (!is_numeric($show) || $show < 1 || $show > 20)) {
   $errors[] = (array("Show" => "Show must be between 1 and 20"));
 }
 
-//validate category
+//validate category<
 if (
   $category &&
-  !($category === 'mens clothing' ||
-    $category === 'jewelery' ||
-    $category === 'electronics' ||
-    $category === 'womens clothing')
+  !(in_array($category, [
+    'mens clothing',
+    'jewelery',
+    'electronics',
+    'womens clothing'
+  ]))
 ) {
   $errors[] = (array("Category" => "Category not found"));
 }
