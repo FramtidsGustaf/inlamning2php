@@ -31,26 +31,19 @@ if (
 if ($category) {
   foreach ($products as $product) {
     if ($product['category'] === $category) {
-      $firstArray[] = $product;
+      $array[] = $product;
     }
   }
   if ($show) {
-    shuffle($firstArray);
-    for ($i = 0; $i < $show; $i++) {
-      $array[] = $firstArray[$i];
-    }
-  } else {
-    $array[] = $firstArray;
+    shuffle($array);
+    array_splice($array, $show);
   }
 }
 
 if ($show && !$category) {
-  if ($show <= 20) {
-    shuffle($products);
-    for ($i = 0; $i < $show; $i++) {
-      $array[] = $products[$i];
-    }
-  }
+  $array = $products;
+  shuffle($array);
+  array_splice($array, $show);
 }
 
 if (!$show && !$category) {
