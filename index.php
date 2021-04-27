@@ -45,9 +45,11 @@ if ($category) {
 }
 
 if ($show && !$category) {
-  shuffle($products);
-  for ($i = 0; $i < $show; $i++) {
-    $array[] = $products[$i];
+  if ($show <= 20) {
+    shuffle($products);
+    for ($i = 0; $i < $show; $i++) {
+      $array[] = $products[$i];
+    }
   }
 }
 
