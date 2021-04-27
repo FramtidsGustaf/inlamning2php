@@ -12,6 +12,10 @@ $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : fal
 $array = [];
 $errors = [];
 
+function send($content) {
+  echo json_encode($content, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+}
+
 //validate show
 if ($show && (!is_numeric($show) || $show < 1 || $show > 20)) {
   $errors[] = (array("Show" => "Show must be between 1 and 20"));
@@ -48,5 +52,5 @@ if ($show) {
 if (!$show && !$category) $array = $products;
 
 //send errors or results
-if ($errors) echo json_encode($errors, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-else echo json_encode($array, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+if ($errors) send($errors);
+else send($array);
