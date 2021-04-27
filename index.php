@@ -12,6 +12,7 @@ $category = isset($_GET['category']) ? htmlspecialchars($_GET['category']) : fal
 $array = [];
 $errors = [];
 
+//sends content to user
 function send($content) {
   echo json_encode($content, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
