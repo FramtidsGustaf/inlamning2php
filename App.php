@@ -29,9 +29,8 @@ class App
       self::$errors[] = array("Category" => $e->getMessage());
     }
 
-    if (self::$errors) {
-      self::responde(self::$errors);
-    } else self::responde(self::$products->get_products());
+    if (self::$errors) self::responde(self::$errors);
+    else self::responde(self::$products->get_products());
   }
 
   private static function query($query)
