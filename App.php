@@ -6,31 +6,28 @@ include_once "Products.php";
 class App
 {
 
-  private static $show;
-  private static $category;
-  private static $products;
   private static $errors = [];
 
   public static function main()
   {
-    self::$show = self::query('show');
-    self::$category = self::query('category');
-    self::$products = new Products(self::$show, self::$category);
+    $show = self::query('show');
+    $category = self::query('category');
+    $products = new Products($show, $category);
 
     try {
-      Validator::validate_show(self::$show);
+      Validator::validate_show($show);
     } catch (Exception $e) {
       self::$errors[] = array("Show" => $e->getMessage());
     }
 
     try {
-      Validator::validate_category(self::$category);
+      Validator::validate_category($category);
     } catch (Exception $e) {
       self::$errors[] = array("Category" => $e->getMessage());
     }
 
     if (self::$errors) self::responde(self::$errors);
-    else self::responde(self::$products->get_products());
+    else self::responde($products->get_products());
   }
 
   private static function query($query)
