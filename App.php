@@ -20,14 +20,12 @@ class App
     try {
       Validator::validate_show(self::$show);
     } catch (Exception $e) {
-      self::$show = false;
       self::$errors[] = array("Show" => $e->getMessage());
     }
 
     try {
       Validator::validate_category(self::$category);
     } catch (Exception $e) {
-      self::$category = false;
       self::$errors[] = array("Category" => $e->getMessage());
     }
 
