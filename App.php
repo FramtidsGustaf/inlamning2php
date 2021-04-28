@@ -29,7 +29,6 @@ class App
       self::responde($products->get_products());
     } else self::responde(self::$errors);
   }
-
   private static function query($query)
   {
     return isset($_GET[$query]) ? filter_var($_GET[$query], FILTER_SANITIZE_STRING) : false;
