@@ -12,7 +12,6 @@ class App
   {
     $show = self::query('show');
     $category = self::query('category');
-    $products = new Products($show, $category);
 
     try {
       Validator::validate_show($show);
@@ -25,6 +24,8 @@ class App
     } catch (Exception $e) {
       self::$errors[] = array("Category" => $e->getMessage());
     }
+
+    if (!self::$errors) $products = new Products($show, $category);
 
     if (self::$errors) self::responde(self::$errors);
     else self::responde($products->get_products());

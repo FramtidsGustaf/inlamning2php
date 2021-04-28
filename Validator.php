@@ -18,7 +18,7 @@ class Validator
 
   public static function validate_show($show)
   {
-    if ($show && (!is_numeric($show) || $show < 1 || $show > 20))
-      throw new Exception('Show must be between 1 and 20.');
+    if (isset($show) && $show !== false && (!is_numeric($show) || $show < 1 || $show > 20))
+      throw new Exception('Show must be a number between 1 and 20.');
   }
 }

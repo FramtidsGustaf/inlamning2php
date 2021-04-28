@@ -187,11 +187,9 @@ class Products
 
   private function get_desired_amount()
   {
-    if (is_numeric($this->show)) {
-      if (!$this->array) $this->array = $this->products;
-      shuffle($this->array);
-      array_splice($this->array, $this->show);
-    }
+    if (!$this->array) $this->array = $this->products;
+    shuffle($this->array);
+    array_splice($this->array, $this->show);
   }
 
   public function get_products()
