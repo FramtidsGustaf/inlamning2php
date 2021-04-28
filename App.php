@@ -24,10 +24,10 @@ class App
       self::$errors[] = array("Category" => $e->getMessage());
     }
 
-    if (!self::$errors) $products = new Products($show, $category);
-
-    if (self::$errors) self::responde(self::$errors);
-    else self::responde($products->get_products());
+    if (!self::$errors) {
+      $products = new Products($show, $category);
+      self::responde($products->get_products());
+    } else self::responde(self::$errors);
   }
 
   private static function query($query)
