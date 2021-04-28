@@ -32,7 +32,7 @@ class App
 
   private static function query($query)
   {
-    return isset($_GET[$query]) ? htmlspecialchars($_GET[$query]) : false;
+    return isset($_GET[$query]) ? filter_var($_GET[$query], FILTER_SANITIZE_STRING) : false;
   }
 
   private static function responde($content)
