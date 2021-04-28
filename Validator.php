@@ -14,15 +14,11 @@ class Validator
   {
     if ($category && !in_array($category, self::$categories))
       throw new Exception('Category not found.');
-
-    return true;
   }
 
   public static function validate_show($show)
   {
     if ($show && (!is_numeric($show) || $show < 1 || $show > 20))
       throw new Exception('Show must be between 1 and 20.');
-
-    return true;
   }
 }
