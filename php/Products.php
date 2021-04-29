@@ -1,5 +1,6 @@
 <?php
 //TODO Comment!
+
 class Products
 {
 
@@ -8,6 +9,7 @@ class Products
   private $category;
   private $desiredProducts = [];
 
+  
   public function __construct($show, $category)
   {
     $this->products = json_decode(file_get_contents('products.json'), true);
