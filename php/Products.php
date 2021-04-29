@@ -1,6 +1,9 @@
 <?php
 //TODO Comment!
 
+/**
+ * Gets the products. Filter out what's undesired and returns what's desired.
+ */
 class Products
 {
 
@@ -9,7 +12,6 @@ class Products
   private $category;
   private $desiredProducts = [];
 
-  
   public function __construct($show, $category)
   {
     $this->products = json_decode(file_get_contents('products.json'), true);
@@ -19,6 +21,9 @@ class Products
     if ($this->show) $this->get_desired_amount();
   }
 
+  /**
+   * Takes the category used when creating this object and filters out the rest
+   */
   private function get_desired_category()
   {
     foreach ($this->products as $product) {
@@ -26,6 +31,9 @@ class Products
     }
   }
 
+  /**
+   * Takes the amount used when creating this object and filters out the rest
+   */
   private function get_desired_amount()
   {
     if (!$this->desiredProducts) $this->desiredProducts = $this->products;
@@ -33,6 +41,9 @@ class Products
     array_splice($this->desiredProducts, $this->show);
   }
 
+  /**
+   * Returns the desired products
+   */
   public function get_products()
   {
     return $this->desiredProducts ? $this->desiredProducts : $this->products;
