@@ -1,7 +1,7 @@
 <?php
 //TODO Comment!
-include_once "Validator.php";
-include_once "Products.php";
+include_once "php/Validator.php";
+include_once "php/Products.php";
 class App
 {
 
