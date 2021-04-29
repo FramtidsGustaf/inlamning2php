@@ -168,7 +168,7 @@ class Products
 
   private $show;
   private $category;
-  private $array = [];
+  private $desiredProducts = [];
 
   public function __construct($show, $category)
   {
@@ -181,19 +181,19 @@ class Products
   private function get_desired_category()
   {
     foreach ($this->products as $product) {
-      if ($product['category'] === $this->category) $this->array[] = $product;
+      if ($product['category'] === $this->category) $this->desiredProducts[] = $product;
     }
   }
 
   private function get_desired_amount()
   {
-    if (!$this->array) $this->array = $this->products;
-    shuffle($this->array);
-    array_splice($this->array, $this->show);
+    if (!$this->desiredProducts) $this->desiredProducts = $this->products;
+    shuffle($this->desiredProducts);
+    array_splice($this->desiredProducts, $this->show);
   }
 
   public function get_products()
   {
-    return $this->array ? $this->array : $this->products;
+    return $this->desiredProducts ? $this->desiredProducts : $this->products;
   }
 }
