@@ -43,7 +43,7 @@ class App
   }
 
   /**
-   * Takes something converts it to json and sends it to the user
+   * Takes something and converts it to json then sends it to the user.
    */
   private static function responde($content)
   {
