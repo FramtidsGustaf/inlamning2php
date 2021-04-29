@@ -1,5 +1,4 @@
 <?php
-//TODO Comment!
 
 /**
  * Gets the products. Filter out what's undesired and returns what's desired.

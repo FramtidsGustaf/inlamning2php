@@ -1,7 +1,11 @@
 <?php
-//TODO Comment!
+
 include_once "php/Validator.php";
 include_once "php/Products.php";
+
+/**
+ * The spider in the web
+ */
 class App
 {
 
@@ -14,19 +18,22 @@ class App
   {
     $show = self::query('show');
     $category = self::query('category');
-    
+
+    //validating the show variable
     try {
       Validator::validate_show($show);
     } catch (Exception $e) {
       self::$errors[] = array("Show" => $e->getMessage());
     }
 
+    //validating the category variable
     try {
       Validator::validate_category($category);
     } catch (Exception $e) {
       self::$errors[] = array("Category" => $e->getMessage());
     }
 
+    //respondes to the user
     if (!self::$errors) {
       $products = new Products($show, $category);
       self::responde($products->get_products());
