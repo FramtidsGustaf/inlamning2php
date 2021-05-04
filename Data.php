@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * Contains all data provided to the user
+ */
 class Data
 {
   private static $products = [
