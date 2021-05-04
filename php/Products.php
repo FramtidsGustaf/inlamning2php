@@ -1,5 +1,6 @@
 <?php
 
+require_once "Data.php";
 /**
  * Gets the products. Filter out what's undesired and returns what's desired.
  */
@@ -13,7 +14,7 @@ class Products
 
   public function __construct($show, $category)
   {
-    $this->products = json_decode(file_get_contents('products.json'), true);
+    $this->products = Data::get_data();
     $this->show = $show;
     $this->category = $category;
     if ($this->category) $this->get_desired_category();
